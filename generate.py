@@ -79,9 +79,10 @@ def main(args):
         state_dict = download_model('last.pt')
     else:
         # state_dict = torch.load(ckpt_path, map_location=f'cuda:{device}')['ema']
-        state_dict = torch.load(ckpt_path, map_location=f'cuda:{device}')['ema']
-        for key in state_dict.keys():
-            print(key)
+        # state_dict = torch.load(ckpt_path, map_location=f'cuda:{device}')['ema']
+        state_dict = torch.load(ckpt_path, map_location=f'cuda:{device}')
+        # for key in state_dict.keys():
+        #     print(key)
     if args.legacy:
         state_dict = load_legacy_checkpoints(
             state_dict=state_dict, encoder_depth=args.encoder_depth
@@ -89,6 +90,9 @@ def main(args):
     model.load_state_dict(state_dict)
     model.eval()  # important!
     vae = AutoencoderKL.from_pretrained(f"stabilityai/sd-vae-ft-{args.vae}").to(device)
+    # vae = AutoencoderKL.from_pretrained(f"./pretrained_models/stabilityai/sd-vae-ft-{args.vae}").to(device)
+    # vae = AutoencoderKL.from_pretrained(pretrained_model_name_or_path='./pretrained_models/sd-vae-{args.vae}').to(device) 
+    print("Successful load")
     assert args.cfg_scale >= 1.0, "In almost all cases, cfg_scale be >= 1.0"
     using_cfg = args.cfg_scale > 1.0
 

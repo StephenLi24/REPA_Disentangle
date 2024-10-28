@@ -19,7 +19,7 @@ def download_model(model_name):
     local_path = f'pretrained_models/{model_name}'
     if not os.path.isfile(local_path):
         os.makedirs('pretrained_models', exist_ok=True)
-        web_path = f'https://www.dl.dropboxusercontent.com/scl/fi/cxedbs4da5ugjq5wg3zrg/last.pt?rlkey=8otgrdkno0nd89po3dpwngwcc&st=apcc645o&dl=0'
+        web_path = f'https://www.dl.dropboxusercontent.com/scl/fi/cxedbs4da5ugjq5wg3zrg/last.pt?rlkey=8otgrdkno0nd89po3dpwngwcc&st=apcc645o&dl=1'
         download_url(web_path, 'pretrained_models', filename=model_name)
     model = torch.load(local_path, map_location=lambda storage, loc: storage)
     return model
